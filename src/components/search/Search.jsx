@@ -1,15 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Accordion, Input } from 'chayns-components';
+import './searchInput/searchInput';
+
 import SiteList from './site/SiteList';
-import Button from './button/Button';
 
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sites: [],
-            searchString: '',
+            sites: [
+                {
+                    siteId: '75505-33940',
+                    locationId: 148001,
+                    appstoreName: 'Cinemy',
+                    facebookId: '1414774485212009'
+                  },
+                  {
+                    siteId: '77890-31571',
+                    locationId: 158829,
+                    appstoreName: 'cinemy-unlim',
+                    facebookId: ''
+                  }
+            ],
             skip: 0,
         };
     }
@@ -21,12 +35,13 @@ export default class Search extends React.Component {
         });
     }
 
-    newSearch(newSearchString) {
+    newSearch() {
         this.setState({
             skip: 0,
-            searchString: newSearchString
         });
     }
+
+    search
 
     addSites = (newSites) => {
         const { sites } = this.state;
@@ -43,30 +58,28 @@ export default class Search extends React.Component {
     };
 
     render() {
-        const { title, showMoreText } = this.props.config;
+        const { title, placeholder } = this.props.config;
         const { sites } = this.state;
         return (
             <div className="tapp__content content">
-                <div className="accordion accordion--open" style={{ overflow: 'hidden', marginTop: '30px' }}>
-                    <div className="accordion__head">
-                        <div className="accordion--trigger accordion__head--search--wrapper" >
-                            <div className="accordion--trigger accordion__head--search">
-                                {title}
-                            </div>
+                <Accordion
+                    head={
+                        title
+                    }
+                    right={
+                        <div>
+                            <Input
+                                placeholder={placeholder}
+                            />
+                            <i className="fa fa-search" />
                         </div>
-                        <div id="searchInput" />
-                    </div>
-                    <div className="accordion__body">
-                        <SiteList
-                            sites={sites}
-                        />
-                        <Button
-                            position="center"
-                            text={showMoreText}
-                            onClick={this.clearSites()}
-                        />
-                    </div>
-                </div>
+                    }
+                    defaultOpened
+                >
+                    <SiteList
+                        sites={sites}
+                    />
+                </Accordion>
             </div>
         );
     }
