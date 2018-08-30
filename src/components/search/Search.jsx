@@ -62,45 +62,45 @@ export default class Search extends React.Component {
         const { title, placeholder, showMoreText } = this.props.config;
         const { sites } = this.state;
         return (
-            <div className="tapp__content content">
-                <Accordion
-                    head={
-                        title
-                    }
-                    right={
-                        <div>
-                            <Input
-                                placeholder={placeholder}
-                            />
-                            <i className="fa fa-search" />
-                        </div>
-                    }
-                    defaultOpened
-                >
+            <Accordion
+                head={
+                    title
+                }
+                right={
                     <div>
-                        <SiteList
-                            sites={sites}
+                        <Input
+                            placeholder={placeholder}
                         />
-                        <ShowMoreButton
-                            position="right"
-                            text={showMoreText}
-                            onClick={() => {
-                                console.log('click');
-                            }}
-                        />
+                        <i className="fa fa-search" />
                     </div>
-                </Accordion>
-            </div>
+                }
+                defaultOpened
+            >
+                <div>
+                    <SiteList
+                        sites={sites}
+                    />
+                    <ShowMoreButton
+                        position="right"
+                        text={showMoreText}
+                        onClick={() => {
+                            console.log('click');
+                        }}
+                    />
+                </div>
+            </Accordion>
         );
     }
 }
 
 Search.propTypes = {
     config: PropTypes.shape({
+
         title: PropTypes.string.isRequired,
         placeholder: PropTypes.string.isRequired,
         showMoreText: PropTypes.string.isRequired,
         take: PropTypes.number.isRequired,
         inputDelay: PropTypes.number.isRequired,
+
     }).isRequired
 };

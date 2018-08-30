@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './button.scss';
 
 const Button = ({ position, text, onClick }) => (
-        <div className="button" style={{ textAlign: position }} >
+        <div className="showMoreButton" style={{ textAlign: position }} >
             <a href="#" onClick={onClick} >{text}</a>
         </div>
     );
