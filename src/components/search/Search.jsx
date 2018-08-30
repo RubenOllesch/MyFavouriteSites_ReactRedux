@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Accordion, Input } from 'chayns-components';
-import './searchInput/searchInput';
+import './searchInput/searchInput.scss';
 
 import SiteList from './site/SiteList';
+import ShowMoreButton from './showMoreButton/Button';
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -58,7 +59,7 @@ export default class Search extends React.Component {
     };
 
     render() {
-        const { title, placeholder } = this.props.config;
+        const { title, placeholder, showMoreText } = this.props.config;
         const { sites } = this.state;
         return (
             <div className="tapp__content content">
@@ -76,9 +77,18 @@ export default class Search extends React.Component {
                     }
                     defaultOpened
                 >
-                    <SiteList
-                        sites={sites}
-                    />
+                    <div>
+                        <SiteList
+                            sites={sites}
+                        />
+                        <ShowMoreButton
+                            position="right"
+                            text={showMoreText}
+                            onClick={() => {
+                                console.log('click');
+                            }}
+                        />
+                    </div>
                 </Accordion>
             </div>
         );

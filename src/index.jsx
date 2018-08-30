@@ -2,19 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import SERVER_URL from './constants/server-url';
-
 /**
  * The function waits till the chayns api is successfully loaded and
  * every additional functionality of it is ready to go,
- * renders the App component then
- * and finally initializes the ModeSwitch.
+ * renders the App component
  * @return {Promise.<void>}
  */
 async function init() {
     try {
-        console.debug('ServerUrl for current environment:', SERVER_URL);
-
         await chayns.ready;
 
         /**
