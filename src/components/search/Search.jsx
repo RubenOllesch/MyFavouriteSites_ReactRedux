@@ -7,15 +7,18 @@ export default class Content extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sites: []
+            sites: [],
+            searchString: '',
+            skip: 0,
+            take: 10
         };
     }
 
-    addSite = (site) => {
+    addSites = (newSites) => {
         const { sites } = this.state;
 
         this.setState({
-            sites: [...sites, site]
+            sites: [...sites, ...newSites]
         });
     };
 
@@ -33,11 +36,7 @@ export default class Content extends React.Component {
                 <SiteList
                     sites={sites}
                 />
-                <Button
-                    position="center"
-                    text="Mehr anzeigen"
-                    onClick={console.log('click')}
-                />
+                
 
             </div>
         );
