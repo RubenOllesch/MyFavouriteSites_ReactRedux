@@ -8,7 +8,6 @@ import searchConfig from '../constants/searchConfig';
 
 const Content = () => (
     <div className="tapp__content content">
-        <Form config={formConfig} />
         <Search config={searchConfig} />
     </div>
 );

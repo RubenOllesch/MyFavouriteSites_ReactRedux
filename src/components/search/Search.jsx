@@ -7,24 +7,13 @@ import './searchInput/searchInput.scss';
 import SiteList from './site/SiteList';
 import ShowMoreButton from './showMoreButton/Button';
 
+import jsonFetcher from '../../utils/jsonFetcher';
+
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sites: [
-                {
-                    siteId: '75505-33940',
-                    locationId: 148001,
-                    appstoreName: 'Cinemy',
-                    facebookId: '1414774485212009'
-                  },
-                  {
-                    siteId: '77890-31571',
-                    locationId: 158829,
-                    appstoreName: 'cinemy-unlim',
-                    facebookId: ''
-                  }
-            ],
+            sites: [],
             skip: 0,
         };
     }
@@ -34,19 +23,22 @@ export default class Search extends React.Component {
         this.setState({
             skip: skip + take
         });
+        this.clearSites();
+        this.searchHandler();
     }
 
-    newSearch() {
+    newSearch(newSearchString) {
         this.setState({
-            skip: 0,
+            searchString: newSearchString,
+            skip: 0
         });
+        this.searchHandler();
     }
 
     search
 
     addSites = (newSites) => {
         const { sites } = this.state;
-
         this.setState({
             sites: [...sites, ...newSites]
         });
@@ -58,6 +50,23 @@ export default class Search extends React.Component {
         });
     };
 
+    searchHandler = () => {
+        const { searchString, skip } = this.state;
+        const { take } = this.props.config;
+        console.log(searchString);
+        if (searchString === '') {
+            return;
+        }
+        const url = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=${skip}&Take=${take}`;
+        const data = jsonFetcher(url);
+        data.then(() => {
+            if (data.ResultCode === 1) {
+                return;
+            }
+            this.addSites(data.Data);
+        });
+    }
+
     render() {
         const { title, placeholder, showMoreText } = this.props.config;
         const { sites } = this.state;
@@ -68,9 +77,7 @@ export default class Search extends React.Component {
                 }
                 right={
                     <div>
-                        <Input
-                            placeholder={placeholder}
-                        />
+                        <Input placeholder={placeholder} onChange={(value) => { console.log(value); }} />
                         <i className="fa fa-search" />
                     </div>
                 }
@@ -80,13 +87,7 @@ export default class Search extends React.Component {
                     <SiteList
                         sites={sites}
                     />
-                    <ShowMoreButton
-                        position="right"
-                        text={showMoreText}
-                        onClick={() => {
-                            console.log('click');
-                        }}
-                    />
+                    <ShowMoreButton position="right" text={showMoreText} onClick={() => { this.showMore().bind(this); }} />
                 </div>
             </Accordion>
         );

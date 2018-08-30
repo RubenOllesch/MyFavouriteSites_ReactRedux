@@ -13,9 +13,6 @@ const SiteList = ({ sites }) => (
                 />
             ))
         }
-        {
-            sites.length === 0 && <div>No Sites have been found.</div>
-        }
     </div>
 );
 
