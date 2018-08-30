@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Accordion, Input } from 'chayns-components';
-import './searchInput/searchInput.scss';
+import { Accordion } from 'chayns-components';
 
+import DelayedInput from './delayedInput/DelayedInput';
 import SiteList from './site/SiteList';
 import ShowMoreButton from './showMoreButton/Button';
 
@@ -14,52 +14,54 @@ export default class Search extends React.Component {
         super(props);
         this.state = {
             sites: [],
+            searchString: '',
             skip: 0,
         };
     }
 
-    showMore() {
-        const { skip, take } = this.state;
-        this.setState({
-            skip: skip + take
-        });
-        this.clearSites();
-        this.searchHandler();
-    }
-
     newSearch(newSearchString) {
+        console.log(newSearchString);
         this.setState({
             searchString: newSearchString,
             skip: 0
+        }, () => {
+            this.clearSites();
+            this.searchHandler();
         });
-        this.searchHandler();
     }
 
-    search
+    showMore() {
+        const { skip } = this.state;
+        const { take } = this.props.config;
+        this.setState({
+            skip: skip + take
+        }, () => {
+            this.searchHandler();
+        });
+    }
 
-    addSites = (newSites) => {
+    addSites(newSites) {
         const { sites } = this.state;
         this.setState({
             sites: [...sites, ...newSites]
         });
-    };
+    }
 
-    clearSites = () => {
+    clearSites() {
         this.setState({
             sites: []
         });
-    };
+    }
 
     searchHandler = () => {
         const { searchString, skip } = this.state;
         const { take } = this.props.config;
-        console.log(searchString);
         if (searchString === '') {
             return;
         }
         const url = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=${skip}&Take=${take}`;
-        const data = jsonFetcher(url);
-        data.then(() => {
+        const result = jsonFetcher(url);
+        result.then((data) => {
             if (data.ResultCode === 1) {
                 return;
             }
@@ -68,17 +70,26 @@ export default class Search extends React.Component {
     }
 
     render() {
-        const { title, placeholder, showMoreText } = this.props.config;
+        const { title, placeholder, showMoreText, inputDelay } = this.props.config;
         const { sites } = this.state;
+
         return (
             <Accordion
                 head={
                     title
                 }
                 right={
-                    <div>
-                        <Input placeholder={placeholder} onChange={(value) => { console.log(value); }} />
-                        <i className="fa fa-search" />
+                    <div className="Suche Suche--accordion">
+                        <DelayedInput
+                            placeholder={placeholder}
+                            delay={inputDelay}
+                            callback={(value) => {
+                                this.newSearch(value);
+                            }}
+                        />
+                        <div className="label">
+                            <i className="fa fa-search" />
+                        </div>
                     </div>
                 }
                 defaultOpened
@@ -87,7 +98,13 @@ export default class Search extends React.Component {
                     <SiteList
                         sites={sites}
                     />
-                    <ShowMoreButton position="right" text={showMoreText} onClick={() => { this.showMore().bind(this); }} />
+                    <ShowMoreButton
+                        position="right"
+                        text={showMoreText}
+                        onClick={() => {
+                            this.showMore();
+                        }}
+                    />
                 </div>
             </Accordion>
         );

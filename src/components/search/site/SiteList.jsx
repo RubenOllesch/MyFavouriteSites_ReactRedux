@@ -7,7 +7,7 @@ const SiteList = ({ sites }) => (
         {
             sites && sites.map(({ siteId, appstoreName }) => (
                 <Site
-                    name={appstoreName}
+                    appstoreName={appstoreName}
                     siteId={siteId}
                     key={siteId}
                 />
