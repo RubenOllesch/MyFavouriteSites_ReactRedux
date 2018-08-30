@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Accordion, Input, TextArea, Button } from 'chayns-components';
+import { Accordion, Button } from 'chayns-components';
+import TextInput from './textInput/TextInput';
 
 import './center.scss';
 
@@ -12,13 +13,7 @@ export default class Form extends React.Component {
             inputs: []
         };
         const { textInputs } = this.props.config;
-        const { inputs } = this.state;
-
-        this.setState({
-            inputs: [...inputs, ...textInputs]
-        });
     }
-
 
     render() {
         const { title, textInputs, buttonText } = this.props.config;
@@ -28,14 +23,12 @@ export default class Form extends React.Component {
                 <div>
                     {
                         textInputs && (textInputs.map(({ type, placeholder }) => {
-                            switch (type) {
-                                case 'input':
-                                    return <Input placeholder={placeholder} />;
-                                case 'textArea':
-                                    return <TextArea placeholder={placeholder} autogrow />;
-                                default:
-                                    return null;
-                            }
+                            return (
+                                <TextInput
+                                    type={type}
+                                    placeholder={placeholder}
+                                />
+                            );
                         }))
                     }
                 </div>
