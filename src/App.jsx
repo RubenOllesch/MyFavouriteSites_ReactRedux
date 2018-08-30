@@ -9,7 +9,6 @@ import Content from './components/search/Search';
  */
 const App = () => (
     <div>
-        test
         <Intro/>
         <Content/>
     </div>
