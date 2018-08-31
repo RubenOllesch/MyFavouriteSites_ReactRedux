@@ -1,40 +1,25 @@
 import React from 'react';
-import { Input, TextArea } from 'chayns-components';
 
-export default class TextInput {
-    constructor({ type, name, placeholder, required }) {
-        this.state = {
-            value: ''
-        };
-    }
-
-    render() {
-        const { type, name, placeholder, required } = this.props;
-        switch (type) {
-            case 'input':
-                return (
-                    <Input
-                        placeholder={placeholder}
-                        onChange={(text) => {
-                                this.setState({
-                                    value: text
-                                });
-                        }}
-                    />
+export default ({ type, id, placeholder, onChange }) => {
+    switch (type) {
+        case 'input':
+            return (
+                <input
+                    id={id}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                />
+            );
+        case 'textarea':
+            return (
+                <textarea
+                    id={id}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    autogrow
+                />
                 );
-            case 'textArea':
-                return (
-                    <TextArea
-                        placeholder={placeholder}
-                        onChange={(text) => {
-                            this.setState({
-                                value: text
-                            });
-                        }}
-                    />
-                    );
-            default:
-                return null;
-        }
+        default:
+            return null;
     }
-}
+};

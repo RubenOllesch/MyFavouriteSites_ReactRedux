@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Accordion, Button } from 'chayns-components';
 import TextInput from './textInput/TextInput';
+import jsonSender from '../../utils/jsonSender';
 
 import './center.scss';
 
@@ -12,7 +13,35 @@ export default class Form extends React.Component {
         this.state = {
             inputs: []
         };
+
         const { textInputs } = this.props.config;
+        textInputs.forEach(({ id }) => {
+            this.state.inputs.push({
+                name: id,
+                value: ''
+            });
+        });
+
+        this.handleChange = this.handleChange.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+    }
+
+    handleChange(event) {
+        const { inputs } = this.state;
+
+        const changedInput = inputs.find(({ name }) => name === event.target.id);
+        const indexOfChangedInput = inputs.indexOf(changedInput);
+
+        inputs[indexOfChangedInput].value = event.target.value;
+        this.setState({
+            inputs
+        });
+    }
+
+    submitForm() {
+        jsonSender({
+            text: this.state.inputs
+        });
     }
 
     render() {
@@ -22,18 +51,19 @@ export default class Form extends React.Component {
             <Accordion head={title} >
                 <div>
                     {
-                        textInputs && (textInputs.map(({ type, placeholder }) => {
-                            return (
+                        textInputs && (textInputs.map(({ type, id, placeholder }) => (
                                 <TextInput
+                                    className="input"
                                     type={type}
+                                    id={id}
                                     placeholder={placeholder}
+                                    onChange={this.handleChange}
                                 />
-                            );
-                        }))
+                            )))
                     }
                 </div>
                 <div className="center">
-                    <Button >
+                    <Button onClick={this.submitForm} >
                         {buttonText}
                     </Button>
                 </div>
