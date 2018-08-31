@@ -39,6 +39,7 @@ export default class Form extends React.Component {
     }
 
     submitForm() {
+        console.log(this.state.inputs);
         jsonSender({
             text: this.state.inputs
         });
@@ -56,6 +57,7 @@ export default class Form extends React.Component {
                                     className="input"
                                     type={type}
                                     id={id}
+                                    key={id}
                                     placeholder={placeholder}
                                     onChange={this.handleChange}
                                 />

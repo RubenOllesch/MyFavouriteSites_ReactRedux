@@ -20,7 +20,6 @@ export default class Search extends React.Component {
     }
 
     newSearch(newSearchString) {
-        console.log(newSearchString);
         this.setState({
             searchString: newSearchString,
             skip: 0
@@ -70,9 +69,13 @@ export default class Search extends React.Component {
     }
 
     render() {
-        const { title, placeholder, showMoreText, inputDelay } = this.props.config;
+        const {
+            title,
+            placeholder,
+            showMoreText,
+            inputDelay
+        } = this.props.config;
         const { sites } = this.state;
-
         return (
             <Accordion
                 head={
@@ -84,7 +87,7 @@ export default class Search extends React.Component {
                             placeholder={placeholder}
                             delay={inputDelay}
                             callback={(value) => {
-                                this.newSearch(value);
+                                    this.newSearch(value);
                             }}
                         />
                         <div className="label">
