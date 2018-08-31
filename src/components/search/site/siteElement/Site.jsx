@@ -17,7 +17,7 @@ import './site.scss';
 
 /* jsx-a11y-disable-line click-events-have-key-events */
 const Site = ({ siteId, appstoreName }) => (
-    <div className="ListItem ListItem--clickable" onClick={() => { chayns.openUrlInBrowser(`'https://chayns.net/${siteId}/aboutus'`); }}>
+    <div className="ListItem ListItem--clickable" onClick={() => { chayns.openUrlInBrowser(`https://chayns.net/${siteId}/aboutus`); }}>
         <div className="ListItem__head">
             <div className="ListItem__Image" style={{ backgroundImage: `url('https://sub60.tobit.com/l/${siteId}')` }} />
             <div className="ListItem__Title">

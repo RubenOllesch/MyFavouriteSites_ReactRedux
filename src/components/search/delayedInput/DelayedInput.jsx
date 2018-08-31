@@ -16,7 +16,9 @@ export default class DelayedInput extends React.Component {
     handleEvent(value) {
         const { callback, delay } = this.props;
         clearTimeout(this.state.lastTimeout);
-        const newTimeout = setTimeout(callback(value), delay);
+        const newTimeout = setTimeout(() => {
+            callback(value);
+        }, delay);
         this.setState({
             lastTimeout: newTimeout
         });

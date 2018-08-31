@@ -1,40 +1,37 @@
 import React from 'react';
-import { Input, TextArea } from 'chayns-components';
+import PropTypes from 'prop-types';
 
-export default class TextInput {
-    constructor({ type, name, placeholder, required }) {
-        this.state = {
-            value: ''
-        };
-    }
-
-    render() {
-        const { type, name, placeholder, required } = this.props;
-        switch (type) {
-            case 'input':
-                return (
-                    <Input
-                        placeholder={placeholder}
-                        onChange={(text) => {
-                                this.setState({
-                                    value: text
-                                });
-                        }}
-                    />
+const TextInput = ({ type, id, placeholder, onChange }) => {
+    switch (type) {
+        case 'input':
+            return (
+                <input
+                    className="input"
+                    id={id}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                />
+            );
+        case 'textarea':
+            return (
+                <textarea
+                    className="input"
+                    id={id}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    autogrow="true"
+                />
                 );
-            case 'textArea':
-                return (
-                    <TextArea
-                        placeholder={placeholder}
-                        onChange={(text) => {
-                            this.setState({
-                                value: text
-                            });
-                        }}
-                    />
-                    );
-            default:
-                return null;
-        }
+        default:
+            return null;
     }
-}
+};
+
+TextInput.propTypes = {
+    type: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired
+};
+
+export default TextInput;
