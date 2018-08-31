@@ -39,7 +39,6 @@ export default class Form extends React.Component {
     }
 
     submitForm() {
-        console.log(this.state.inputs);
         jsonSender({
             text: this.state.inputs
         });
