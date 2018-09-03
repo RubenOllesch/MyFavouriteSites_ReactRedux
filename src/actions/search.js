@@ -1,25 +1,6 @@
-export const UPDATE_TEXTFIELD = 'UPDATE_TEXTFIELD';
-export const ADD_TEXTFIELD = 'ADD_TEXTFIELD';
-export const SUBMIT_FORM = 'SUBMIT_FORM';
-
 export const NEW_SEARCH = 'NEW_SEARCH';
 export const SHOW_MORE = 'SHOW_MORE';
 export const RECEIVED_RESULT = 'RECEIVED_RESULT';
-
-export const updateTextfield = (id, text) => {
-    return {
-        type: UPDATE_TEXTFIELD,
-        id,
-        text
-    };
-}
-
-export const addTextfield = (id) => {
-    return {
-        type: ADD_TEXTFIELD,
-        id
-    };
-}
 
 export const newSearch = (searchString) => {
     return {
@@ -45,15 +26,20 @@ export const fetchSites = () => {
     return (dispatch, getState) => {
         const state = getState();
         const { searchString, skip, take } = state.searchReducer;
+        if (searchString === '') {
+            return;
+        }
         const url = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=${skip}&Take=${take}`;
         return fetch(url)
         .then(
             response => response.json(),
-            error => console.error(error)
+            error => {
+                console.error(error);
+                return;
+            }
         )
         .then(
             json => {
-                console.log(json);
                 dispatch(receivedResult(json));
             }
         )

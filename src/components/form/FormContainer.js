@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Form from './Form';
-import { addTextfield, updateTextfield } from '../../actions';
+import { addTextfield, updateTextfield, submitForm } from '../../actions/form';
 
 const mapStateToProps = state => {
     return {
@@ -15,6 +15,9 @@ const mapDispatchToProps = dispatch => {
         },
         updateTextfield: (event) => {
             dispatch(updateTextfield(event.target.id, event.target.value));
+        },
+        submitForm: () => {
+            dispatch(submitForm());
         }
     }
 }

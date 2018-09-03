@@ -1,4 +1,4 @@
-import { UPDATE_TEXTFIELD, ADD_TEXTFIELD } from "../actions";
+import { UPDATE_TEXTFIELD, ADD_TEXTFIELD } from "../actions/form";
 
 const initialState = {
     formList: []

@@ -8,7 +8,7 @@ import TextInput from './textInput/TextInput';
 
 import './center.scss';
 
-const Form = ({ config, formList, addTextfield, updateTextfield }) => {
+const Form = ({ config, addTextfield, updateTextfield, submitForm }) => {
     return (
         <Accordion head={config.title} >
             <div>
@@ -29,12 +29,7 @@ const Form = ({ config, formList, addTextfield, updateTextfield }) => {
                 }
             </div>
             <div className="center">
-                <Button onClick={() => {
-                    console.log(store.getState.formList);
-                    jsonSender({
-                        text: store.getState().formList
-                    });
-                }} >
+                <Button onClick={submitForm} >
                     {config.buttonText}
                 </Button>
             </div>
