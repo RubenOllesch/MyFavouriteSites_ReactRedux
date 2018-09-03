@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Form from './Form';
-import { addTextfield, updateTextfield, submitForm } from '../../actions';
+import { addTextfield, updateTextfield } from '../../actions';
 
 const mapStateToProps = state => {
     return {

@@ -1,4 +1,4 @@
-import { ADD_SITES, NEW_SEARCH, SHOW_MORE, CLEAR_SITES } from "../actions";
+import { NEW_SEARCH, RECEIVED_SITES, SHOW_MORE } from "../actions";
 
 const initialState = {
     siteList: [],
@@ -6,21 +6,8 @@ const initialState = {
     skip: 0,
     take: 10
 }
-
 export default (state = initialState, action) => {
     switch (action.type) {
-        case CLEAR_SITES:
-            return {...state,...{
-                siteList: []
-            }};
-            
-        case ADD_SITES:
-            return {...state, ...{
-                siteList: [...state.siteList,
-                    ...action.newSites
-                ]
-            }};
-
         case NEW_SEARCH:
             return {...state, ...{
                 searchString: action.searchString,
@@ -32,6 +19,12 @@ export default (state = initialState, action) => {
                 skip: state.skip + state.take
             }};
     
+        case RECEIVED_SITES:
+            return {...state, ...{
+                siteList: [...state.siteList,
+                    ...action.sites
+                ]
+            }}
         default:
             return state;
     }

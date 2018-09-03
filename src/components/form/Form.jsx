@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import jsonSender from '../../utils/jsonSender';
-import store from '../../store';
 
 import { Accordion, Button } from 'chayns-components';
 import TextInput from './textInput/TextInput';
 
 import './center.scss';
 
-var Form = ({ config, addTextfield, updateTextfield }) => {
-    console.log(config);
+const Form = ({ config, formList, addTextfield, updateTextfield }) => {
     return (
         <Accordion head={config.title} >
             <div>
