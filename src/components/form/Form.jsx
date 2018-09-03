@@ -3,75 +3,39 @@ import PropTypes from 'prop-types';
 
 import { Accordion, Button } from 'chayns-components';
 import TextInput from './textInput/TextInput';
-import jsonSender from '../../utils/jsonSender';
 
 import './center.scss';
 
-export default class Form extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputs: []
-        };
-
-        const { textInputs } = this.props.config;
-        textInputs.forEach(({ id }) => {
-            this.state.inputs.push({
-                name: id,
-                value: ''
-            });
-        });
-
-        this.handleChange = this.handleChange.bind(this);
-        this.submitForm = this.submitForm.bind(this);
-    }
-
-    handleChange(event) {
-        const { inputs } = this.state;
-
-        const changedInput = inputs.find(({ name }) => name === event.target.id);
-        const indexOfChangedInput = inputs.indexOf(changedInput);
-
-        inputs[indexOfChangedInput].value = event.target.value;
-        this.setState({
-            inputs
-        });
-    }
-
-    submitForm() {
-        jsonSender({
-            text: this.state.inputs
-        });
-    }
-
-    render() {
-        const { title, textInputs, buttonText } = this.props.config;
-
-        return (
-            <Accordion head={title} >
-                <div>
-                    {
-                        textInputs && (textInputs.map(({ type, id, placeholder }) => (
-                                <TextInput
-                                    className="input"
-                                    type={type}
-                                    id={id}
-                                    key={id}
-                                    placeholder={placeholder}
-                                    onChange={this.handleChange}
-                                />
-                            )))
-                    }
-                </div>
-                <div className="center">
-                    <Button onClick={this.submitForm} >
-                        {buttonText}
-                    </Button>
-                </div>
-            </Accordion>
-        );
-    }
+const Form = ({ config, addTextfield, updateTextfield, submitForm }) => {
+    return (
+        <Accordion head={config.title} >
+            <div>
+                {
+                    config.textInputs && (config.textInputs.map(({ type, id, placeholder }) => {
+                        addTextfield(id);
+                        return (
+                            <TextInput
+                                className="input"
+                                type={type}
+                                id={id}
+                                key={id}
+                                placeholder={placeholder}
+                                onChange={updateTextfield}
+                            />
+                        );
+                    }))
+                }
+            </div>
+            <div className="center">
+                <Button onClick={submitForm} >
+                    {config.buttonText}
+                </Button>
+            </div>
+        </Accordion>
+    );
 }
+
+export default Form;
 
 Form.propTypes = {
     config: PropTypes.shape({

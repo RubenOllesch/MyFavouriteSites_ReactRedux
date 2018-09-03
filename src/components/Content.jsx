@@ -1,15 +1,16 @@
 import React from 'react';
 
-import Form from './form/Form';
-import Search from './search/Search';
+import FormContainer from './form/FormContainer';
+import SearchContainer from './search/SearchContainer';
 
 import formConfig from '../constants/formConfig';
 import searchConfig from '../constants/searchConfig';
 
+
 const Content = () => (
     <div className="tapp__content content">
-        <Form config={formConfig} />
-        <Search config={searchConfig} />
+        <FormContainer config={formConfig} />
+        <SearchContainer config={searchConfig} />
     </div>
 );
 

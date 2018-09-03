@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import rootReducer from './reducers/index';
+import { createStore, applyMiddleware } from 'redux';
 
+import App from './App';
 /**
  * The function waits till the chayns api is successfully loaded and
  * every additional functionality of it is ready to go,
@@ -12,14 +16,16 @@ async function init() {
     try {
         await chayns.ready;
 
-        /**
-         * Render the Component App inside the tappElement
-         */
-        const tappElement = document.querySelector('.tapp');
-        ReactDOM.render(<App />, tappElement);
     } catch (err) {
         console.warn('no chayns environment found:\n', err);
     }
+
+    const store = createStore(
+    rootReducer,
+    applyMiddleware(thunkMiddleware));
+
+    const tappElement = document.querySelector('.tapp');
+    ReactDOM.render(<Provider store={store}><App /></Provider>, tappElement);
 }
 
 init();
