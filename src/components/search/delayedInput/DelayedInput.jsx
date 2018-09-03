@@ -6,8 +6,8 @@ import { Input } from 'chayns-components';
 import './delayedInput.scss';
 
 export default class DelayedInput extends React.Component {
-    constructor({ placeholder, delay, callback }) {
-        super({ placeholder, delay, callback });
+    constructor(props) {
+        super(props);
         this.state = {
             lastTimeout: 0
         };
