@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import jsonSender from '../../utils/jsonSender';
+import store from '../../store';
+
 import { Accordion, Button } from 'chayns-components';
 import TextInput from './textInput/TextInput';
 
 import './center.scss';
-import { connect } from 'react-redux';
 
 var Form = ({ config, addTextfield, updateTextfield }) => {
     console.log(config);
-    console.log(addTextfield);
-    console.log(updateTextfield);
     return (
         <Accordion head={config.title} >
             <div>
@@ -32,7 +32,10 @@ var Form = ({ config, addTextfield, updateTextfield }) => {
             </div>
             <div className="center">
                 <Button onClick={() => {
-                    console.log('submit');
+                    console.log(store.getState.formList);
+                    jsonSender({
+                        text: store.getState().formList
+                    });
                 }} >
                     {config.buttonText}
                 </Button>
@@ -40,8 +43,6 @@ var Form = ({ config, addTextfield, updateTextfield }) => {
         </Accordion>
     );
 }
-
-Form = connect()(Form);
 
 export default Form;
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import app from './reducers/index';0
-import { addTextfield, updateTextfield } from './actions/index';
 import App from './App';
+import store from './store';
 
 /**
  * The function waits till the chayns api is successfully loaded and
@@ -19,7 +17,6 @@ async function init() {
     } catch (err) {
         console.warn('no chayns environment found:\n', err);
     }
-    const store = createStore(app);
     /**
      * Render the Component App inside the tappElement
      */

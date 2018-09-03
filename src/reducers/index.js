@@ -29,7 +29,7 @@ const formApp = (state = initialState, action) => {
                     }
                 ]
             }};
-
+s
         default:
             return state;
     }
