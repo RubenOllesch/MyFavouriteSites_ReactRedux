@@ -1,6 +1,7 @@
 export const NEW_SEARCH = 'NEW_SEARCH';
 export const SHOW_MORE = 'SHOW_MORE';
 export const RECEIVED_RESULT = 'RECEIVED_RESULT';
+export const CLEAR_SITES = 'CLEAR_SITES';
 
 export const newSearch = (searchString) => {
     return {
@@ -12,6 +13,12 @@ export const newSearch = (searchString) => {
 export const showMore = () => {
     return {
         type: SHOW_MORE
+    };
+}
+
+export const clearSites = () => {
+    return {
+        type: CLEAR_SITES
     };
 }
 
@@ -40,6 +47,9 @@ export const fetchSites = () => {
         )
         .then(
             json => {
+                if (skip === 0) {
+                    dispatch(clearSites());
+                }
                 dispatch(receivedResult(json));
             }
         )

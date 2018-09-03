@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import jsonSender from '../../utils/jsonSender';
-
 import { Accordion, Button } from 'chayns-components';
 import TextInput from './textInput/TextInput';
 

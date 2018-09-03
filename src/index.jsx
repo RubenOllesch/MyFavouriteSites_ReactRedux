@@ -26,11 +26,6 @@ async function init() {
 
     const tappElement = document.querySelector('.tapp');
     ReactDOM.render(<Provider store={store}><App /></Provider>, tappElement);
-
-    console.log(store.getState());
-    const unsubscribe = store.subscribe(() =>
-        console.log(store.getState())
-    );
 }
 
 init();
