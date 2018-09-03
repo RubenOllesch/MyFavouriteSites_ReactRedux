@@ -1,4 +1,4 @@
-import { NEW_SEARCH, RECEIVED_SITES, SHOW_MORE } from "../actions";
+import { NEW_SEARCH, RECEIVED_RESULT, SHOW_MORE } from "../actions";
 
 const initialState = {
     siteList: [],
@@ -10,6 +10,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case NEW_SEARCH:
             return {...state, ...{
+                siteList: [],
                 searchString: action.searchString,
                 skip: 0
             }};
@@ -19,10 +20,11 @@ export default (state = initialState, action) => {
                 skip: state.skip + state.take
             }};
     
-        case RECEIVED_SITES:
+        case RECEIVED_RESULT:
+            const sites = action.result.ResultCode === 0 ? action.result.Data : [];
             return {...state, ...{
                 siteList: [...state.siteList,
-                    ...action.sites
+                    ...sites
                 ]
             }}
         default:

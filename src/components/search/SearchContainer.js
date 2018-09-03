@@ -10,18 +10,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        clearSites: () => {
-            dispatch(clearSites());
-        },
-        addSites: (newSites) => {
-            dispatch(addSites(newSites));
-        },
         newSearch: (value) => {
             dispatch(newSearch(value));
-            dispatch(fetchSites);
+            dispatch(fetchSites());
         },
         showMore: () => {
             dispatch(showMore());
+            dispatch(fetchSites());
         }
     }
 }
