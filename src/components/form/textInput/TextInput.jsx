@@ -1,24 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Input, TextArea } from 'chayns-components/lib';
 
 const TextInput = ({ type, id, placeholder, onChange }) => {
     switch (type) {
         case 'input':
             return (
-                <input
-                    className="input"
+                <Input
                     id={id}
                     placeholder={placeholder}
-                    onChange={onChange}
+                    onChange={(value) => { onChange(id, value); }}
                 />
             );
         case 'textarea':
             return (
-                <textarea
-                    className="input"
+                <TextArea
                     id={id}
                     placeholder={placeholder}
-                    onChange={onChange}
+                    onChange={(value) => { onChange(id, value); }}
                     autogrow="true"
                 />
                 );

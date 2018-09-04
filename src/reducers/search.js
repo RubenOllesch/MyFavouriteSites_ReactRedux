@@ -1,11 +1,11 @@
-import { NEW_SEARCH, RECEIVED_RESULT, SHOW_MORE, CLEAR_SITES } from "../actions/search";
+import { NEW_SEARCH, RECEIVED_RESULT, SHOW_MORE, CLEAR_SITES } from '../actions/search';
 
 const initialState = {
     siteList: [],
     searchString: '',
     skip: 0,
     take: 10
-}
+};
 export default (state = initialState, action) => {
     switch (action.type) {
         case NEW_SEARCH:
@@ -34,13 +34,12 @@ export default (state = initialState, action) => {
             };
 
         case RECEIVED_RESULT:
-            const sites = action.result.ResultCode === 0 ? action.result.Data : [];
             return {
                 ...state,
                 ...{
                     siteList: [
                         ...state.siteList,
-                        ...sites
+                        ...action.result.ResultCode === 0 ? action.result.Data : []
                     ]
                 }
             };
@@ -48,5 +47,4 @@ export default (state = initialState, action) => {
         default:
             return state;
     }
-}
-
+};
